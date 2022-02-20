@@ -1,6 +1,5 @@
 # Example of Arduino environment   
 I use [this](https://github.com/ZakKemble/nRF905-arduino).   
-Example is in the arduino folder.   
 
 # Wirering using polling
 
