@@ -101,7 +101,7 @@ void setup()
 
 #else
 
-  // Standard wires (Using DR and AM Interrupt)
+  // All wires (Using DR and AM Interrupt)
   transceiver.begin(
     SPI, // SPI bus to use (SPI, SPI1, SPI2 etc)
     10000000, // SPI Clock speed (10MHz)
@@ -124,7 +124,7 @@ void setup()
     nRF905_onRxComplete,
     nRF905_onRxInvalid,
     nRF905_onTxComplete,
-    nRF905_onAddrMatch
+    NULL
   );
     
   // Set address of this device
