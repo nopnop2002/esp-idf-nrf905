@@ -125,6 +125,8 @@ void server_task(void *pvParameters)
 			ESP_LOGW(pcTaskGetTaskName(0), "Invalid packet!");
 			invalids++;
 			nRF905_RX();
+		} else if (packetStatus == NRF905_ADDR_MATCH) {
+			ESP_LOGI(pcTaskGetTaskName(0), "Address match!");
 		} else if (packetStatus == NRF905_RX_COMPLETE) {
 			ESP_LOGI(pcTaskGetTaskName(0), "Got packet!");
 			pings++;
