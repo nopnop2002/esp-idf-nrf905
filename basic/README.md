@@ -13,7 +13,7 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 ## Wirering using polling
 
 |nRF905||UNO||
-|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
 |MISO|--|D11||
 |MOSI|--|D12|*1|
@@ -35,7 +35,7 @@ You need level shift from 5V to 3.3V.
 ## Wirering using DR and AM Interrupt
 
 |nRF905||UNO||
-|:-:|:-:|:-:|
+|:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
 |MISO|--|D11||
 |MOSI|--|D12|*1|
