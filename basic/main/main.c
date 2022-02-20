@@ -17,7 +17,7 @@
 #define PAYLOAD_SIZE	NRF905_MAX_PAYLOAD
 
 #if CONFIG_SENDER
-void task_tx(void *pvParameters)
+void tx_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 
@@ -46,7 +46,7 @@ void task_tx(void *pvParameters)
 
 
 #if CONFIG_RECEIVER
-void task_rx(void *pvParameters)
+void rx_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 
@@ -66,6 +66,8 @@ void task_rx(void *pvParameters)
 		if (packetStatus == NRF905_RX_INVALID) {
 			ESP_LOGW(pcTaskGetTaskName(0), "Invalid packet!");
 			nRF905_RX();
+		} else if (packetStatus == NRF905_ADDR_MATCH) {
+			ESP_LOGI(pcTaskGetTaskName(0), "Address match!");
 		} else if (packetStatus == NRF905_RX_COMPLETE) {
 			ESP_LOGI(pcTaskGetTaskName(0), "Got packet!");
 			// Read payload
@@ -81,10 +83,10 @@ void task_rx(void *pvParameters)
 void app_main()
 {
 #if CONFIG_SENDER
-	xTaskCreate(&task_tx, "task_tx", 1024*2, NULL, 5, NULL);
+	xTaskCreate(&tx_task, "sender", 1024*2, NULL, 5, NULL);
 #endif
 #if CONFIG_RECEIVER
-	xTaskCreate(&task_rx, "task_rx", 1024*2, NULL, 5, NULL);
+	xTaskCreate(&rx_task, "receiver", 1024*2, NULL, 5, NULL);
 #endif
 }
 
