@@ -244,5 +244,5 @@ void loop()
   Serial.println(badData);
   Serial.println(F("------"));
 
-  delay(500);
+  delay(1000);
 }
