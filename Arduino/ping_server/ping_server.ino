@@ -41,7 +41,7 @@ void nRF905_int_am(){transceiver.interrupt_am();}
 // Event function for RX complete
 void nRF905_onRxComplete(nRF905* device)
 {
-  Serial.println("nRF905_onRxComplete");
+	Serial.println("nRF905_onRxComplete");
 	packetStatus = PACKET_RX_DONE;
 	transceiver.standby();
 }
@@ -49,25 +49,25 @@ void nRF905_onRxComplete(nRF905* device)
 // Event function for RX invalid
 void nRF905_onRxInvalid(nRF905* device)
 {
-  Serial.println("nRF905_onRxInvalid");
-  packetStatus = PACKET_INVALID;
+	Serial.println("nRF905_onRxInvalid");
+	packetStatus = PACKET_INVALID;
 	transceiver.standby();
 }
 
 // Event function for TX complete
 void nRF905_onTxComplete(nRF905* device)
 {
-  Serial.println("nRF905_onTxComplete");
-  packetStatus = PACKET_TX_DONE;
-  //transceiver.standby();
+	Serial.println("nRF905_onTxComplete");
+	packetStatus = PACKET_TX_DONE;
+	//transceiver.standby();
 }
 
 // Event function for Addr Match
 void nRF905_onAddrMatch(nRF905* device)
 {
-  Serial.println("nRF905_onAddrMatch");
-  packetStatus = PACKET_ADDR_MATCH;
-  //transceiver.standby();
+	Serial.println("nRF905_onAddrMatch");
+	packetStatus = PACKET_ADDR_MATCH;
+	//transceiver.standby();
 }
 
 
@@ -83,22 +83,22 @@ void setup()
 
 #if defined(POLLING)
 
-  // Minimal wires (polling status register)
-  // Up to 5 wires can be disconnected, however this will reduce functionality and will put the library into polling mode instead of interrupt mode
-  // In polling mode the .poll() method must be called as often as possible. If .poll() is not called often enough then events may be missed. (Search for .poll() in the loop() function below)
-  transceiver.begin(
-    SPI,
-    10000000,
-    6, // SPI SS (OUT)
-    NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
-    9, // TRX (RX/TX mode)
-    NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
-    NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
-    NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
-    NRF905_PIN_UNUSED, // Without the AM pin the library will run in polling mode and poll the status register over SPI.
-    NULL, // No interrupt function
-    NULL // No interrupt function
-  );
+	// Minimal wires (polling status register)
+	// Up to 5 wires can be disconnected, however this will reduce functionality and will put the library into polling mode instead of interrupt mode
+	// In polling mode the .poll() method must be called as often as possible. If .poll() is not called often enough then events may be missed. (Search for .poll() in the loop() function below)
+	transceiver.begin(
+		SPI,
+		10000000,
+		6, // SPI SS (OUT)
+		NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
+		9, // TRX (RX/TX mode)
+		NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
+		NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
+		NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
+		NRF905_PIN_UNUSED, // Without the AM pin the library will run in polling mode and poll the status register over SPI.
+		NULL, // No interrupt function
+		NULL // No interrupt function
+		);
 
 #else
 
@@ -140,7 +140,7 @@ void loop()
 	static uint32_t badData;
 
 #if defined(POLLING)
-  transceiver.poll();
+	transceiver.poll();
 #endif
 
 	if(packetStatus == PACKET_INVALID)
@@ -212,14 +212,14 @@ void loop()
 		}
 		Serial.println();
 
-    Serial.println(F("Totals:"));
-    Serial.print(F(" Pings   "));
-    Serial.println(pings);
-    Serial.print(F(" Invalid "));
-    Serial.println(invalids);
-    Serial.print(F(" Bad     "));
-    Serial.println(badData);
-    Serial.println(F("------"));
+		Serial.println(F("Totals:"));
+		Serial.print(F(" Pings   "));
+		Serial.println(pings);
+		Serial.print(F(" Invalid "));
+		Serial.println(invalids);
+		Serial.print(F(" Bad     "));
+		Serial.println(badData);
+		Serial.println(F("------"));
 	}
 
 }
