@@ -23,7 +23,7 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 nRF905 is not 5V tolerant.   
 You need level shift from 5V to 3.3V.   
 
-# Wirering using DR and AM Interrupt
+# Wirering using DR(Data Ready) and AM(Address Match) Interrupt
 
 |nRF905||UNO||
 |:-:|:-:|:-:|:-:|
@@ -33,9 +33,9 @@ You need level shift from 5V to 3.3V.
 |SCK|--|D13|*1|
 |TXEN|--|D9|*1|
 |DR|--|D3||
-|CD|--|D2||
+|CD|--|N/C||
 |PWR|--|3.3V||
-|AM|--|N/C||
+|AM|--|D2||
 |CLK|--|N/C||
 |CE|--|3.3V||
 |VCC|--|3.3V||
