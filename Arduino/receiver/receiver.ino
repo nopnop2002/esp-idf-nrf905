@@ -6,9 +6,6 @@
  * Web: https://blog.zakkemble.net/nrf905-avrarduino-librarydriver/
  */
 
-/*
- * Listen for packets and send them back
- */
 
 #include <nRF905.h>
 #include <SPI.h>
