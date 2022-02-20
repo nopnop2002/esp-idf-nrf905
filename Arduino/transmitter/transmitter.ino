@@ -85,7 +85,7 @@ void loop()
 	transceiver.write(TXADDR, buffer, sizeof(buffer));
 
 	// Send the data (send fails if other transmissions are going on, keep trying until success) and enter RX mode on completion
-  while(!transceiver.TX(NRF905_NEXTMODE_RX, true));
+	while(!transceiver.TX(NRF905_NEXTMODE_RX, true));
 	sent++;
    
 	Serial.println(F("Totals:"));
