@@ -30,7 +30,7 @@ void setup()
 {
 	Serial.begin(115200);
 	
-  Serial.println(F("Transmitter started"));
+	Serial.println(F("Transmitter started"));
 	
 	// This must be called first
 	SPI.begin();
