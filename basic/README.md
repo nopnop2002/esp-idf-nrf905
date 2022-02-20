@@ -8,7 +8,8 @@ Simple send or receive.
 
 
 # Communication with arduino environment
-I use [this](https://github.com/ZakKemble/nRF905-arduino).
+I use [this](https://github.com/ZakKemble/nRF905-arduino).   
+Example is in the arduino folder.   
 
 ## Wirering using polling
 
