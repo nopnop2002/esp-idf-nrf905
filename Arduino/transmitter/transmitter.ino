@@ -1,14 +1,9 @@
 /*
- * Project: nRF905 Radio Library for Arduino (Ping client example)
+ * Project: nRF905 Radio Library for Arduino (Trasnmitter example)
  * Author: Zak Kemble, contact@zakkemble.net
  * Copyright: (C) 2020 by Zak Kemble
  * License: GNU GPL v3 (see License.txt)
  * Web: https://blog.zakkemble.net/nrf905-avrarduino-librarydriver/
- */
-
-/*
- * Time how long it takes to send some data and get a reply.
- * Should be around 14-17ms with default settings.
  */
 
 #include <nRF905.h>

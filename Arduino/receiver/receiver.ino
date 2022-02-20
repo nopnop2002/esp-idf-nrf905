@@ -1,5 +1,5 @@
 /*
- * Project: nRF905 Radio Library for Arduino (Ping server example)
+ * Project: nRF905 Radio Library for Arduino (Receiver example)
  * Author: Zak Kemble, contact@zakkemble.net
  * Copyright: (C) 2020 by Zak Kemble
  * License: GNU GPL v3 (see License.txt)
