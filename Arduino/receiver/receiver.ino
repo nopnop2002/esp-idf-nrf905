@@ -41,142 +41,142 @@ void nRF905_int_am(){transceiver.interrupt_am();}
 // Event function for RX complete
 void nRF905_onRxComplete(nRF905* device)
 {
-  Serial.println("nRF905_onRxComplete");
-  packetStatus = PACKET_RX_DONE;
-  //transceiver.standby();
+	Serial.println("nRF905_onRxComplete");
+	packetStatus = PACKET_RX_DONE;
+	//transceiver.standby();
 }
 
 // Event function for RX invalid
 void nRF905_onRxInvalid(nRF905* device)
 {
-  Serial.println("nRF905_onRxInvalid");
-  packetStatus = PACKET_INVALID;
-  //transceiver.standby();
+	Serial.println("nRF905_onRxInvalid");
+	packetStatus = PACKET_INVALID;
+	//transceiver.standby();
 }
 
 // Event function for TX complete
 void nRF905_onTxComplete(nRF905* device)
 {
-  Serial.println("nRF905_onTxComplete");
-  packetStatus = PACKET_TX_DONE;
-  //transceiver.standby();
+	Serial.println("nRF905_onTxComplete");
+	packetStatus = PACKET_TX_DONE;
+	//transceiver.standby();
 }
 
 // Event function for Addr Match
 void nRF905_onAddrMatch(nRF905* device)
 {
-  Serial.println("nRF905_onAddrMatch");
-  packetStatus = PACKET_ADDR_MATCH;
-  //transceiver.standby();
+	Serial.println("nRF905_onAddrMatch");
+	packetStatus = PACKET_ADDR_MATCH;
+	//transceiver.standby();
 }
 
 void setup()
 {
-  Serial.begin(115200);
+	Serial.begin(115200);
 
-  Serial.println(F("Receiver starting..."));
+	Serial.println(F("Receiver starting..."));
 
-  // This must be called first
-  SPI.begin();
+	// This must be called first
+	SPI.begin();
 
 
 #if defined(POLLING)
 
-  // Minimal wires (polling status register)
-  // Up to 5 wires can be disconnected, however this will reduce functionality and will put the library into polling mode instead of interrupt mode
-  // In polling mode the .poll() method must be called as often as possible. If .poll() is not called often enough then events may be missed. (Search for .poll() in the loop() function below)
-  transceiver.begin(
-    SPI,
-    10000000,
-    6, // SPI SS (OUT)
-    NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
-    9, // TRX (RX/TX mode)
-    NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
-    NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
-    NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
-    NRF905_PIN_UNUSED, // Without the AM pin the library will run in polling mode and poll the status register over SPI.
-    NULL, // No interrupt function
-    NULL // No interrupt function
-  );
+	// Minimal wires (polling status register)
+	// Up to 5 wires can be disconnected, however this will reduce functionality and will put the library into polling mode instead of interrupt mode
+	// In polling mode the .poll() method must be called as often as possible. If .poll() is not called often enough then events may be missed. (Search for .poll() in the loop() function below)
+	transceiver.begin(
+		SPI,
+		10000000,
+		6, // SPI SS (OUT)
+		NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
+		9, // TRX (RX/TX mode)
+		NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
+		NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
+		NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
+		NRF905_PIN_UNUSED, // Without the AM pin the library will run in polling mode and poll the status register over SPI.
+		NULL, // No interrupt function
+		NULL // No interrupt function
+	);
 
 #else
 
-  // All wires (Using DR and AM Interrupt)
-  transceiver.begin(
-    SPI, // SPI bus to use (SPI, SPI1, SPI2 etc)
-    10000000, // SPI Clock speed (10MHz)
-    6, // SPI SS
-    NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
-    9, // TRX (RX/TX mode)
-    NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
-    NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
-    3, // DR (data ready)
-    2, // AM (address match)
-    nRF905_int_dr, // Interrupt function for DR
-    nRF905_int_am // Interrupt function for AM
-  );
+	// All wires (Using DR and AM Interrupt)
+	transceiver.begin(
+		SPI, // SPI bus to use (SPI, SPI1, SPI2 etc)
+		10000000, // SPI Clock speed (10MHz)
+		6, // SPI SS
+		NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
+		9, // TRX (RX/TX mode)
+		NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
+		NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
+		3, // DR (data ready)
+		2, // AM (address match)
+		nRF905_int_dr, // Interrupt function for DR
+		nRF905_int_am // Interrupt function for AM
+	);
 
   
 #endif
 
-  // Register event functions
-  transceiver.events(
-    nRF905_onRxComplete,
-    nRF905_onRxInvalid,
-    nRF905_onTxComplete,
-    NULL
-  );
+	// Register event functions
+	transceiver.events(
+		nRF905_onRxComplete,
+		nRF905_onRxInvalid,
+		nRF905_onTxComplete,
+		NULL
+	);
     
-  // Set address of this device
-  transceiver.setListenAddress(RXADDR);
+	// Set address of this device
+	transceiver.setListenAddress(RXADDR);
 
-  // Put into receive mode
-  transceiver.RX();
+	// Put into receive mode
+	transceiver.RX();
 }
 
 void loop()
 {
-  static uint32_t pings;
-  static uint32_t invalids;
+	static uint32_t pings;
+	static uint32_t invalids;
 
 #if defined(POLLING)
-  transceiver.poll();
+	transceiver.poll();
 #endif
 
-  if(packetStatus == PACKET_INVALID)
-  {
-    invalids++;
-    packetStatus = PACKET_NONE;
-    Serial.println(F("Invalid packet!"));
-    transceiver.RX();
-  }
-  else if(packetStatus == PACKET_RX_DONE)
-  {
-    pings++;
-    packetStatus = PACKET_NONE;
-    Serial.println(F("Got pascket!"));
+	if(packetStatus == PACKET_INVALID)
+	{
+		invalids++;
+		packetStatus = PACKET_NONE;
+		Serial.println(F("Invalid packet!"));
+		transceiver.RX();
+	}
+	else if(packetStatus == PACKET_RX_DONE)
+	{
+		pings++;
+		packetStatus = PACKET_NONE;
+		Serial.println(F("Got pascket!"));
 
-    // Make buffer for data
-    uint8_t buffer[PAYLOAD_SIZE];
+		// Make buffer for data
+		uint8_t buffer[PAYLOAD_SIZE];
 
-    // Read payload
-    transceiver.read(buffer, sizeof(buffer));
+		// Read payload
+		transceiver.read(buffer, sizeof(buffer));
 
-    // Show received data
-    Serial.print(F("Data from client:"));
-    for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
-    {
-      Serial.print(F(" "));
-      Serial.print(buffer[i], DEC);
-    }
-    Serial.println();
+		// Show received data
+		Serial.print(F("Data from client:"));
+		for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
+		{
+			Serial.print(F(" "));
+			Serial.print(buffer[i], DEC);
+		}
+		Serial.println();
 
-    Serial.println(F("Totals:"));
-    Serial.print(F(" Pings   "));
-    Serial.println(pings);
-    Serial.print(F(" Invalid "));
-    Serial.println(invalids);
-    Serial.println(F("------"));
-  }
+		Serial.println(F("Totals:"));
+		Serial.print(F(" Pings   "));
+		Serial.println(pings);
+		Serial.print(F(" Invalid "));
+		Serial.println(invalids);
+		Serial.println(F("------"));
+	}
 
 }
