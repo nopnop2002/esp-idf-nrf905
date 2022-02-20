@@ -59,10 +59,9 @@ void client_task(void *pvParameters)
 			packetStatus = nRF905_poll();
 			ESP_LOGD(pcTaskGetTaskName(0), "packetStatus=%d", packetStatus);
 
-			if(packetStatus != NRF905_NONE)
-				break;
-			else if(millis() - sendStartTime > TIMEOUT)
-				break;
+			if(packetStatus == NRF905_RX_COMPLETE) break;
+			if(packetStatus == NRF905_RX_INVALID) break;
+			if(millis() - sendStartTime > TIMEOUT) break;
 			vTaskDelay(1);
 		}
 
