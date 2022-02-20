@@ -25,7 +25,7 @@
 #define PAYLOAD_SIZE  NRF905_MAX_PAYLOAD
 
 // Comment when using DR and AM Interrupt.
-//#define POLLING
+#define POLLING
 
 nRF905 transceiver = nRF905();
 
