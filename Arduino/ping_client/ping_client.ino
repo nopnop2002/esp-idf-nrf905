@@ -185,7 +185,7 @@ void loop()
 			break;
 		else if(millis() - sendStartTime > TIMEOUT)
 			break;
-		}
+	}
 
 	if(success == PACKET_NONE)
 	{
@@ -199,27 +199,27 @@ void loop()
 	}
 	else if(success == PACKET_RX_DONE)
 	{
-	  uint16_t totalTime = millis() - startTime;
-	  replies++;
+		uint16_t totalTime = millis() - startTime;
+		replies++;
 
-	  Serial.print(F("Ping time: "));
-	  Serial.print(totalTime);
-	  Serial.println(F("ms"));
+		Serial.print(F("Ping time: "));
+		Serial.print(totalTime);
+		Serial.println(F("ms"));
 
-	  // Get the reply data
-	  uint8_t replyBuffer[PAYLOAD_SIZE];
-	  transceiver.read(replyBuffer, sizeof(replyBuffer));
+		// Get the reply data
+		uint8_t replyBuffer[PAYLOAD_SIZE];
+		transceiver.read(replyBuffer, sizeof(replyBuffer));
 
-	  // Validate data
-	  for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
-	  {
+		// Validate data
+		for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
+		{
 			if(replyBuffer[i] != counter)
 			{
 				badData++;
 				Serial.println(F("Bad data!"));
 				break;
 			}
-	  }
+		}
 
 		// Print out ping contents
 		Serial.print(F("Data from server:"));
