@@ -44,21 +44,21 @@ void setup()
 		6, // SPI SS (OUT)
 		NRF905_PIN_UNUSED, // CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode
 		9, // TRX (RX/TX mode)
-    NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
-    NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
-    NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
+		NRF905_PIN_UNUSED, // PWR pin must be connected to VCC (3.3V) - Will always be powered up
+		NRF905_PIN_UNUSED, // Without the CD pin Carrier Detect will be disabled
+		NRF905_PIN_UNUSED, // Without the DR pin the library will run in polling mode and poll the status register over SPI. This also means the nRF905 can not wake the MCU up from sleep mode
     NRF905_PIN_UNUSED, // Without the AM pin the library will run in polling mode and poll the status register over SPI.
 		NULL, // No interrupt function
 		NULL // No interrupt function
 	);
 
-  // Register event functions
-  transceiver.events(
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  );
+	// Register event functions
+	transceiver.events(
+		NULL,
+		NULL,
+		NULL,
+		NULL
+	);
 
 }
 
