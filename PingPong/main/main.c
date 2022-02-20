@@ -25,6 +25,7 @@ void client_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_printConfig();
 
 	uint8_t buffer[PAYLOAD_SIZE];
 	uint8_t replyBuffer[PAYLOAD_SIZE];
@@ -106,6 +107,7 @@ void server_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_printConfig();
 
 	// Set address of this device
 	nRF905_setListenAddress(RXADDR);

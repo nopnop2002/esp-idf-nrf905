@@ -122,6 +122,7 @@ uint8_t nRF905_readConfigRegister(uint8_t reg);
 void nRF905_writeConfigRegister(uint8_t reg, uint8_t val);
 void nRF905_setConfigReg1(uint8_t val, uint8_t mask, uint8_t reg);
 void nRF905_setConfigReg2(uint8_t val, uint8_t mask, uint8_t reg);
+void nRF905_printConfig(void);
 void nRF905_defaultConfig(void);
 void nRF905_powerOn(bool val);
 void nRF905_standbyMode(bool val);

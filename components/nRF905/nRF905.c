@@ -121,14 +121,6 @@ uint8_t spi_transfer(uint8_t value)
 
 uint8_t nRF905_readConfigRegister(uint8_t reg)
 {
-#if 0
-	uint8_t val = 0;
-	CHIPSELECT()
-	{
-		spi.transfer(NRF905_CMD_R_CONFIG | reg);
-		val = spi.transfer(NRF905_CMD_NOP);
-	}
-#endif
 	gpio_set_level(__csn, 0);
 	spi_transfer(NRF905_CMD_R_CONFIG | reg );
 	uint8_t val = spi_transfer(NRF905_CMD_NOP);
@@ -138,13 +130,6 @@ uint8_t nRF905_readConfigRegister(uint8_t reg)
 
 void nRF905_writeConfigRegister(uint8_t reg, uint8_t val)
 {
-#if 0
-	CHIPSELECT()
-	{
-		spi.transfer(NRF905_CMD_W_CONFIG | reg);
-		spi.transfer(val);
-	}
-#endif
 	gpio_set_level(__csn, 0);
 	spi_transfer(NRF905_CMD_W_CONFIG | reg );
 	spi_transfer(val);
@@ -161,6 +146,47 @@ void nRF905_setConfigReg2(uint8_t val, uint8_t mask, uint8_t reg)
 {
 	// TODO atomic read/write?
 	nRF905_writeConfigRegister(reg, (nRF905_readConfigRegister(NRF905_REG_CONFIG2) & mask) | val);
+}
+
+void nRF905_printConfig(void)
+{
+	uint8_t config[10];
+	for (int reg=0;reg<10;reg++) {
+		config[reg] = nRF905_readConfigRegister(reg);
+		ESP_LOGD(TAG, "%d:%02x", reg, config[reg]);
+	}
+	uint16_t CH_NO = (config[1] & 0x01) << 8 | config[0];
+	uint8_t  AUTO_RETRAN = (config[1] & 0x20) >> 4;
+	uint8_t  RX_RED_PWR = (config[1] & 0x10) >> 3;
+	uint8_t  PA_PWR = (config[1] & 0x0C) >> 2;
+	uint8_t  HFREQ_PLL = (config[1] & 0x02) >> 1;
+	uint8_t  TX_AFW = (config[2] & 0x70) >> 4;
+	uint8_t  RX_AFW = (config[2] & 0x07) >> 0;
+	uint8_t  RX_PW = (config[3] & 0x3F) >> 0;
+	uint8_t  TX_PW = (config[4] & 0x3F) >> 0;
+	uint32_t RX_ADDRESS = (config[5] << 24) | (config[6] << 16) | (config[7] << 8) | (config[8] << 0);
+	uint8_t  CRC_MODE = (config[9] & 0x80) >> 7;
+	uint8_t  CRC_EN = (config[9] & 0x40) >> 6;
+	uint8_t  XOF = (config[9] & 0x38) >> 3;
+	uint8_t  UP_CLK_EN = (config[9] & 0x04) >> 2;
+	uint8_t  UP_CLK_FREQ = (config[9] & 0x03) >> 0;
+
+	printf("================ NRF Configuration ================\n");
+	printf("CH_NO            = %d\n", CH_NO);
+	printf("AUTO_RETRAN      = %d\n", AUTO_RETRAN);
+	printf("RX_RED_PWR       = %d\n", RX_RED_PWR);
+	printf("PA_PWR           = %d\n", PA_PWR);
+	printf("HFREQ_PLL        = %d\n", HFREQ_PLL);
+	printf("TX_AFW           = %d\n", TX_AFW);
+	printf("RX_AFW           = %d\n", RX_AFW);
+	printf("RX_PW            = %d\n", RX_PW);
+	printf("TX_PW            = %d\n", TX_PW);
+	printf("RX_ADDRESS       = 0x%x\n", RX_ADDRESS);
+	printf("CRC_MODE         = %d\n", CRC_MODE);
+	printf("CRC_EN           = %d\n", CRC_EN);
+	printf("XOF              = %d\n", XOF);
+	printf("UP_CLK_EN        = %d\n", UP_CLK_EN);
+	printf("UP_CLK_FREQ      = %d\n", UP_CLK_FREQ);
 }
 
 void nRF905_defaultConfig(void)
