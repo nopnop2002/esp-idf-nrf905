@@ -170,23 +170,75 @@ void nRF905_printConfig(void)
 	uint8_t  XOF = (config[9] & 0x38) >> 3;
 	uint8_t  UP_CLK_EN = (config[9] & 0x04) >> 2;
 	uint8_t  UP_CLK_FREQ = (config[9] & 0x03) >> 0;
+	float    FRF = ( 422.4 + CH_NO /10)*(1+HFREQ_PLL);
 
 	printf("================ NRF Configuration ================\n");
 	printf("CH_NO            = %d\n", CH_NO);
-	printf("AUTO_RETRAN      = %d\n", AUTO_RETRAN);
-	printf("RX_RED_PWR       = %d\n", RX_RED_PWR);
-	printf("PA_PWR           = %d\n", PA_PWR);
-	printf("HFREQ_PLL        = %d\n", HFREQ_PLL);
-	printf("TX_AFW           = %d\n", TX_AFW);
-	printf("RX_AFW           = %d\n", RX_AFW);
-	printf("RX_PW            = %d\n", RX_PW);
-	printf("TX_PW            = %d\n", TX_PW);
+	printf("FRF              = %.2f MHz\n", FRF);
+	if (AUTO_RETRAN == 0) {
+	printf("AUTO_RETRAN      = No retransmission\n");
+	} else {
+	printf("AUTO_RETRAN      = Retransmission of data packet\n");
+	}
+	if (RX_RED_PWR == 0) {
+	printf("RX_RED_PWR       = Normal operation\n");
+	} else {
+	printf("RX_RED_PWR       = Reduced power\n");
+	}
+	if (PA_PWR == 0) {
+	printf("PA_PWR           = -10dBm\n");
+	} else if (PA_PWR == 1) {
+	printf("PA_PWR           = -2dBm\n");
+	} else if (PA_PWR == 2) {
+	printf("PA_PWR           = +6dBm\n");
+	} else {
+	printf("PA_PWR           = +10dBm\n");
+	}
+	if (HFREQ_PLL == 0) {
+	printf("HFREQ_PLL        = Chip operating in 433MHz band\n");
+	} else {
+	printf("HFREQ_PLL        = Chip operating in 868 or 915 MHz band\n");
+	}
+	printf("TX_AFW           = %d byte TX address field width\n", TX_AFW);
+	printf("RX_AFW           = %d byte RX address field width\n", RX_AFW);
+	printf("TX_PW            = %d byte TX payload field width\n", TX_PW);
+	printf("RX_PW            = %d byte RX payload field width\n", RX_PW);
 	printf("RX_ADDRESS       = 0x%x\n", RX_ADDRESS);
-	printf("CRC_MODE         = %d\n", CRC_MODE);
-	printf("CRC_EN           = %d\n", CRC_EN);
-	printf("XOF              = %d\n", XOF);
-	printf("UP_CLK_EN        = %d\n", UP_CLK_EN);
-	printf("UP_CLK_FREQ      = %d\n", UP_CLK_FREQ);
+	if (CRC_MODE == 0) {
+	printf("CRC_MODE         = 8 CRC check bit\n");
+	} else {
+	printf("CRC_MODE         = 16 CRC check bit\n");
+	}
+	if (CRC_EN == 0) {
+	printf("CRC_EN           = Disable\n");
+	} else {
+	printf("CRC_EN           = Enable\n");
+	}
+	if (XOF == 0) {
+	printf("XOF              = 4MHz\n");
+	} else if (XOF == 1) {
+	printf("XOF              = 8MHz\n");
+	} else if (XOF == 2) {
+	printf("XOF              = 12MHz\n");
+	} else if (XOF == 3) {
+	printf("XOF              = 16MHz\n");
+	} else {
+	printf("XOF              = 20MHz\n");
+	}
+	if (UP_CLK_EN == 0) {
+	printf("UP_CLK_EN        = No external clock signal available\n");
+	} else {
+	printf("UP_CLK_EN        = External clock signal enabled\n");
+	}
+	if (UP_CLK_FREQ == 0) {
+	printf("UP_CLK_FREQ      = 4MHz\n");
+	} else if (UP_CLK_FREQ == 1) {
+	printf("UP_CLK_FREQ      = 2MHz\n");
+	} else if (UP_CLK_FREQ == 2) {
+	printf("UP_CLK_FREQ      = 1MHz\n");
+	} else {
+	printf("UP_CLK_FREQ      = 500kHz\n");
+	}
 }
 
 void nRF905_defaultConfig(void)

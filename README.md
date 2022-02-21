@@ -50,3 +50,23 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 __You can change it to any pin using menuconfig.__   
 
+# Default Settings
+```
+================ NRF Configuration ================
+CH_NO            = 10
+FRF              = 423.40 MHz
+AUTO_RETRAN      = No retransmission
+RX_RED_PWR       = Normal operation
+PA_PWR           = +10dBm
+HFREQ_PLL        = Chip operating in 433MHz band
+TX_AFW           = 4 byte TX address field width
+RX_AFW           = 4 byte RX address field width
+TX_PW            = 32 byte TX payload field width
+RX_PW            = 32 byte RX payload field width
+RX_ADDRESS       = 0xe7e7e7e7
+CRC_MODE         = 16 CRC check bit
+CRC_EN           = Enable
+XOF              = 16MHz
+UP_CLK_EN        = No external clock signal available
+UP_CLK_FREQ      = 4MHz
+```
