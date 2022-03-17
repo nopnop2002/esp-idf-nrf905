@@ -6,8 +6,8 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 |nRF905||UNO||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
-|MISO|--|D11||
-|MOSI|--|D12|*1|
+|MISO|--|D12||
+|MOSI|--|D11|*1|
 |SCK|--|D13|*1|
 |TXEN|--|D9|*1|
 |DR|--|N/C||
@@ -28,8 +28,8 @@ You need level shift from 5V to 3.3V.
 |nRF905||UNO||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
-|MISO|--|D11||
-|MOSI|--|D12|*1|
+|MISO|--|D12||
+|MOSI|--|D11|*1|
 |SCK|--|D13|*1|
 |TXEN|--|D9|*1|
 |DR|--|D3||
