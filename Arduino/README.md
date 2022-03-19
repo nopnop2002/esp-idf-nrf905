@@ -3,7 +3,7 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 
 # Wirering using polling
 
-|nRF905||UNO||
+|nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
 |MISO|--|D12||
@@ -22,7 +22,7 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 
 # Wirering using DR(Data Ready) and AM(Address Match) Interrupt
 
-|nRF905||UNO||
+|nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
 |MISO|--|D12||
