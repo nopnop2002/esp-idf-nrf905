@@ -19,9 +19,6 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 |VCC|--|3.3V||
 |GND|--|GND||
 
-(*1)    
-nRF905 is not 5V tolerant.   
-You need level shift from 5V to 3.3V.   
 
 # Wirering using DR(Data Ready) and AM(Address Match) Interrupt
 
@@ -44,3 +41,4 @@ You need level shift from 5V to 3.3V.
 (*1)    
 nRF905 is not 5V tolerant.   
 You need level shift from 5V to 3.3V.   
+I used [this](https://www.ti.com/lit/ds/symlink/txs0108e.pdf?ts=1647593549503) for a level shift.   
