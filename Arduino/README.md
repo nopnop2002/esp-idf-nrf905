@@ -6,10 +6,10 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 |nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
-|MISO|--|D12||
-|MOSI|--|D11|*1|
-|SCK|--|D13|*1|
 |TXEN|--|D9|*1|
+|MOSI|--|D11|*1|
+|MISO|--|D12||
+|SCK|--|D13|*1|
 |DR|--|N/C||
 |CD|--|N/C||
 |PWR|--|3.3V||
@@ -25,10 +25,10 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 |nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
 |CSN|--|D6|*1|
-|MISO|--|D12||
-|MOSI|--|D11|*1|
-|SCK|--|D13|*1|
 |TXEN|--|D9|*1|
+|MOSI|--|D11|*1|
+|MISO|--|D12||
+|SCK|--|D13|*1|
 |DR|--|D3||
 |CD|--|N/C||
 |PWR|--|3.3V||
