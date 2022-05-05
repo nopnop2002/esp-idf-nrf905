@@ -28,6 +28,8 @@
 #define SPI_HOST_ID HSPI_HOST
 #elif defined CONFIG_IDF_TARGET_ESP32S2
 #define SPI_HOST_ID SPI2_HOST
+#elif defined CONFIG_IDF_TARGET_ESP32S3
+#define SPI_HOST_ID SPI2_HOST
 #elif defined CONFIG_IDF_TARGET_ESP32C3
 #define SPI_HOST_ID SPI2_HOST
 #endif
@@ -35,9 +37,9 @@
 #define ESP_INTR_FLAG_DEFAULT 0
 
 static int __csn; // SPI Chip Select.
-static int __ce; //  CE (standby) pin must be connected to VCC (3.3V) - Will always be in RX or TX mode.
+static int __ce; //  Enables chip for receive and transmi pin.
 static int __txen; // TX_EN=”1”TX mode, TX_EN=”0”RX mode.
-static int __pwr; // PWR pin must be connected to VCC (3.3V) - Will always be powered up.
+static int __pwr; // Power up chip pin.
 static int __cd; // Without the CD pin the library will run in polling mode and poll the status register over SPI.
 static int __dr; // Without the DR pin the library will run in polling mode and poll the status register over SPI.
 static int __am; // Without the AM pin the library will run in polling mode and poll the status register over SPI.
@@ -365,15 +367,11 @@ void nRF905_begin()
 	gpio_reset_pin(__txen);
 	gpio_set_direction(__txen, GPIO_MODE_OUTPUT);
 
-	if (__ce != NRF905_PIN_UNUSED) {
-		gpio_reset_pin(__ce);
-		gpio_set_direction(__ce, GPIO_MODE_OUTPUT);
-	}
+	gpio_reset_pin(__ce);
+	gpio_set_direction(__ce, GPIO_MODE_OUTPUT);
 
-	if (__pwr != NRF905_PIN_UNUSED) {
-		gpio_reset_pin(__pwr);
-		gpio_set_direction(__pwr, GPIO_MODE_OUTPUT);
-	}
+	gpio_reset_pin(__pwr);
+	gpio_set_direction(__pwr, GPIO_MODE_OUTPUT);
 
 	spi_bus_config_t bus = {
 		.miso_io_num = CONFIG_MISO_GPIO,

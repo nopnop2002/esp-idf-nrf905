@@ -41,7 +41,7 @@ void client_task(void *pvParameters)
 		counter++;
 
 		// Show data
-		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetTaskName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 		
 		// Write reply data and destination address to radio IC
 		nRF905_write(TXADDR, buffer, sizeof(buffer));
@@ -50,7 +50,7 @@ void client_task(void *pvParameters)
 		while(nRF905_TX(NRF905_NEXTMODE_RX, true) == false);
 		sent++;
 
-		ESP_LOGI(pcTaskGetTaskName(0), "Waiting for reply...");
+		ESP_LOGI(pcTaskGetName(0), "Waiting for reply...");
 
 		// Wait for reply with timeout
 		uint32_t sendStartTime = millis();
@@ -58,7 +58,7 @@ void client_task(void *pvParameters)
 		while(1)
 		{
 			packetStatus = nRF905_poll();
-			ESP_LOGD(pcTaskGetTaskName(0), "packetStatus=%d", packetStatus);
+			ESP_LOGD(pcTaskGetName(0), "packetStatus=%d", packetStatus);
 
 			if(packetStatus == NRF905_RX_COMPLETE) break;
 			if(packetStatus == NRF905_RX_INVALID) break;
@@ -68,15 +68,15 @@ void client_task(void *pvParameters)
 
 		if(packetStatus == NRF905_NONE)
 		{
-			ESP_LOGW(pcTaskGetTaskName(0), "Ping timed out!");
+			ESP_LOGW(pcTaskGetName(0), "Ping timed out!");
 			timeouts++;
 		} else if (packetStatus == NRF905_RX_INVALID) {
-			ESP_LOGW(pcTaskGetTaskName(0), "Invalid packet!");
+			ESP_LOGW(pcTaskGetName(0), "Invalid packet!");
 			invalids++;
 			//nRF905_RX();
 		} else if (packetStatus == NRF905_RX_COMPLETE) {
 			replies++;
-			ESP_LOGI(pcTaskGetTaskName(0), "Got packet!");
+			ESP_LOGI(pcTaskGetName(0), "Got packet!");
 			// Read payload
 			nRF905_read(replyBuffer, sizeof(replyBuffer));
 			// Validate data
@@ -85,15 +85,15 @@ void client_task(void *pvParameters)
 				if(replyBuffer[i] != counter)
 				{
 					badData++;
-					ESP_LOGW(pcTaskGetTaskName(0), "Bad data!");
+					ESP_LOGW(pcTaskGetName(0), "Bad data!");
 					break;
 				}
 			}
 			// Show received data
-			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetTaskName(0), replyBuffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), replyBuffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 		}
 
-		ESP_LOGI(pcTaskGetTaskName(0), "Send:%d Replies:%d Timeouts:%d Invalid:%d Bad:%d", sent, replies, timeouts, invalids, badData);
+		ESP_LOGI(pcTaskGetName(0), "Send:%d Replies:%d Timeouts:%d Invalid:%d Bad:%d", sent, replies, timeouts, invalids, badData);
 		vTaskDelay(100);
 	} // end while
 }
@@ -124,18 +124,18 @@ void server_task(void *pvParameters)
 	while(1) {
 		uint8_t packetStatus = nRF905_poll();
 		if (packetStatus == NRF905_RX_INVALID) {
-			ESP_LOGW(pcTaskGetTaskName(0), "Invalid packet!");
+			ESP_LOGW(pcTaskGetName(0), "Invalid packet!");
 			invalids++;
 			nRF905_RX();
 		} else if (packetStatus == NRF905_ADDR_MATCH) {
-			ESP_LOGI(pcTaskGetTaskName(0), "Address match!");
+			ESP_LOGI(pcTaskGetName(0), "Address match!");
 		} else if (packetStatus == NRF905_RX_COMPLETE) {
-			ESP_LOGI(pcTaskGetTaskName(0), "Got packet!");
+			ESP_LOGI(pcTaskGetName(0), "Got packet!");
 			pings++;
 			// Read payload
 			nRF905_read(buffer, sizeof(buffer));
 			// Show received data
-			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetTaskName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 
 			memcpy(replyBuffer, buffer, PAYLOAD_SIZE);
 			// Validate data and modify
@@ -154,7 +154,7 @@ void server_task(void *pvParameters)
 				}
 			}
 			if(dataIsBad)
-				ESP_LOGI(pcTaskGetTaskName(0),"Received data was bad!");
+				ESP_LOGI(pcTaskGetName(0),"Received data was bad!");
 
 			// Write reply data and destination address to radio
 			nRF905_write(TXADDR, replyBuffer, sizeof(replyBuffer));
@@ -162,7 +162,7 @@ void server_task(void *pvParameters)
 			// Send the reply data, once the transmission has completed go into receive mode
 			while(!nRF905_TX(NRF905_NEXTMODE_RX, true));
 
-			ESP_LOGI(pcTaskGetTaskName(0),"Pings:%d Invalid:%d Bad:%d", pings, invalids, badData);
+			ESP_LOGI(pcTaskGetName(0),"Pings:%d Invalid:%d Bad:%d", pings, invalids, badData);
 		}
 		vTaskDelay(10);
 	}

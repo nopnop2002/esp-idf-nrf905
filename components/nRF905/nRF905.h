@@ -110,10 +110,10 @@ typedef enum
 #define LOW  0
 #define HIGH 1
 
-#define delayMicroseconds(microsec) ets_delay_us(microsec)
-//#define delay(millsec) ets_delay_us(millsec*1000)
-#define delay(millsec) vTaskDelay(millsec/portTICK_RATE_MS)
-#define millis() xTaskGetTickCount()*portTICK_RATE_MS
+#define delayMicroseconds(microsec) esp_rom_delay_us(microsec)
+#define delay(millsec) esp_rom_delay_us(millsec*1000)
+//#define delay(millsec) vTaskDelay(millsec/portTICK_RATE_MS)
+#define millis() xTaskGetTickCount()*portTICK_PERIOD_MS
 
 bool spi_write_byte(uint8_t* Dataout, size_t DataLength );
 bool spi_read_byte(uint8_t* Datain, uint8_t* Dataout, size_t DataLength );

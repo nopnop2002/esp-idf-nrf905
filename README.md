@@ -1,7 +1,7 @@
 # esp-idf-nrf905
 nRF905 Single chip 433/868/915MHz Transceiver Driver for esp-idf.   
 
-I ported from [here](https://github.com/ZakKemble/nRF905-arduino).
+I ported from [here](https://github.com/ZakKemble/nRF905-arduino).   
 
 ![nRF905-PHY](https://user-images.githubusercontent.com/6020549/154829949-f2bd4d74-f287-42ae-9f1c-29da57b3d580.JPG)
 
@@ -15,7 +15,7 @@ This is because this version supports ESP32-C3.
 ```Shell
 git clone https://github.com/nopnop2002/esp-idf-nrf905
 cd esp-idf-nrf905/basic/
-idf.py set-target {esp32/esp32s2/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
 idf.py menuconfig
 idf.py flash
 ```
@@ -32,15 +32,15 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 
 # Wirering
 
-|nRF905||ESP32|ESP32-S2|ESP32-C3|
+|nRF905||ESP32|ESP32-S2/S3|ESP32-C3|
 |:-:|:-:|:-:|:-:|:-:|
 |MISO|--|GPIO19|GPIO37|GPIO18|
 |SCK|--|GPIO18|GPIO36|GPIO10|
 |MOSI|--|GPIO23|GPIO35|GPIO19|
 |CSN|--|GPIO5|GPIO34|GPIO9|
-|TXEN|--|GPIO15|GPIO40|GPIO0|
-|PWR|--|GPIO16|GPIO41|GPIO1|
-|CE|--|GPIO17|GPIO42|GPIO2|
+|TXEN|--|GPIO15|GPIO40|GPIO4|
+|PWR|--|GPIO16|GPIO41|GPIO5|
+|CE|--|GPIO17|GPIO42|GPIO6|
 |DR|--|N/C|N/C|N/C|
 |CD|--|N/C|N/C|N/C|
 |AM|--|N/C|N/C|N/C|
