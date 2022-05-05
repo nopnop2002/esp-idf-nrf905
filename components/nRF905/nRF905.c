@@ -338,9 +338,13 @@ void nRF905_begin()
 
 	// nRF905 stuff
 	ESP_LOGI(TAG, "CONFIG_TXEN_GPIO=%d", CONFIG_TXEN_GPIO);
+	ESP_LOGI(TAG, "CONFIG_CE_GPIO=%d", CONFIG_CE_GPIO);
+	ESP_LOGI(TAG, "CONFIG_PWR_GPIO=%d", CONFIG_PWR_GPIO);
 	__txen = CONFIG_TXEN_GPIO;
-	__ce = NRF905_PIN_UNUSED;
-	__pwr = NRF905_PIN_UNUSED;
+	//__ce = NRF905_PIN_UNUSED;
+	__ce = CONFIG_CE_GPIO;
+	//__pwr = NRF905_PIN_UNUSED;
+	__pwr =  CONFIG_PWR_GPIO;
 	__cd = NRF905_PIN_UNUSED;
 	__dr = NRF905_PIN_UNUSED;
 	__am = NRF905_PIN_UNUSED;
@@ -360,6 +364,16 @@ void nRF905_begin()
 	// TX_EN=”1”TX mode, TX_EN=”0”RX mode
 	gpio_reset_pin(__txen);
 	gpio_set_direction(__txen, GPIO_MODE_OUTPUT);
+
+	if (__ce != NRF905_PIN_UNUSED) {
+		gpio_reset_pin(__ce);
+		gpio_set_direction(__ce, GPIO_MODE_OUTPUT);
+	}
+
+	if (__pwr != NRF905_PIN_UNUSED) {
+		gpio_reset_pin(__pwr);
+		gpio_set_direction(__pwr, GPIO_MODE_OUTPUT);
+	}
 
 	spi_bus_config_t bus = {
 		.miso_io_num = CONFIG_MISO_GPIO,
