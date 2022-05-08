@@ -83,6 +83,8 @@ UP_CLK_FREQ      = 4MHz
 |Acknowledgement Payload|No|Yes|
 |Modulation format|GFSK|GFSK|
 
+nRF905 cannot tell whether the transmission was successful or unsuccessful on the transmitting side.   
+nRF24L01 can tell whether the transmission was successful or unsuccessful on the transmitting side.   
 
 # Comparison of nRF905 and cc1101
 ||nRF905|cc1101|
