@@ -86,30 +86,17 @@ UP_CLK_FREQ      = 4MHz
 nRF905 cannot tell whether the transmission was successful or unsuccessful on the transmitting side.   
 nRF24L01 can tell whether the transmission was successful or unsuccessful on the transmitting side.   
 
-# Comparison of nRF905 and cc1101
-||nRF905|cc1101|
-|:-:|:-:|:-:|
-|Manufacturer|Nordic Semiconductor|Texas Instrument|
-|Frequency|433/868/915MHz|315/433/868/915MHz|
-|Maximum Payload|32Byte|64Byte|
-|FiFo for reception|32Byte*1|64Byte*1|
-|FiFo for transmission|32Byte*1|64Byte*1|
-|CRC Length|8/16bits|16bits|
-|Acknowledgement Payload|No|No|
-|Modulation format|GFSK|2-FSK/4-FSK/GFSK/ASK/OOK/MSK|
-
-
-# Comparison of nRF905 and si4432
-||nRF905|si4432|
-|:-:|:-:|:-:|
-|Manufacturer|Nordic Semiconductor|Silicon Labs|
-|Frequency|433/868/915MHz|315/433/868/915MHz|
-|Maximum Payload|32Byte|64Byte|
-|FiFo for reception|32Byte*1|64Byte*1|
-|FiFo for transmission|32Byte*1|64Byte*1|
-|CRC Length|8/16bits|8/16bits|
-|Acknowledgement Payload|No|No|
-|Modulation format|GFSK|FSK/GFSK/OOK|
+# Comparison of nRF905, cc1101 and si4432
+||nRF905|cc1101|si4432|
+|:-:|:-:|:-:|:-:|
+|Manufacturer|Nordic Semiconductor|Texas Instrument|Silicon Labs|
+|Frequency|433/868/915MHz|315/433/868/915MHz|315/433/868/915MHz|
+|Maximum Payload|32Byte|64Byte|64Byte|
+|FiFo for reception|32Byte*1|64Byte*1|64Byte*1|
+|FiFo for transmission|32Byte*1|64Byte*1|64Byte*1|
+|CRC Length|8/16bits|16bits|8/16bits|
+|Acknowledgement Payload|No|No|No|
+|Modulation format|GFSK|2-FSK/4-FSK/GFSK/ASK/OOK/MSK|FSK/GFSK/OOK|
 
 - GFSK  : Gaussian shaped Frequency Shift Keying
 - 2-FSK : Binary Frequency Shift Keying
