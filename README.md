@@ -71,6 +71,18 @@ UP_CLK_EN        = No external clock signal available
 UP_CLK_FREQ      = 4MHz
 ```
 
+# Comparison of nRF905 and nRF24L01
+||nRF905|nRF24L01|
+|:-:|:-:|:-:|
+|Manufacturer|Nordic Semiconductor|Nordic Semiconductor|
+|Frequency|433/868/915MHz|2.4GHz|
+|Maximum Payload|32Byte|32Byte|
+|FiFo for reception|32Byte*1|32Byte*3|
+|FiFo for transmission|32Byte*1|32Byte*3|
+|CRC Length|8/16bits|8/16bits|
+|Acknowledgement Payload|No|Yes|
+|Modulation format|GFSK|GFSK|
+
 
 # Comparison of nRF905 and cc1101
 ||nRF905|cc1101|
