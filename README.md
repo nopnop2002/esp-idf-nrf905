@@ -81,5 +81,5 @@ UP_CLK_FREQ      = 4MHz
 |FiFo for reception|32Byte*1|64Byte*1|
 |FiFo for transmission|32Byte*1|64Byte*1|
 |CRC Length|8/16bits|16bits|
-|Acknowledgement Payload|Yes|No|
+|Acknowledgement Payload|No|No|
 |Modulation format|GFSK|2-FSK/4-FSK/GFSK/ASK/OOK/MSK|
