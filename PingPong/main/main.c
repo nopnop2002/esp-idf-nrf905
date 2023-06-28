@@ -3,6 +3,8 @@
  * This sample code is in the public domain.
  */
 
+#include <stdio.h>
+#include <inttypes.h>
 #include "string.h"
 
 #include "freertos/FreeRTOS.h"
@@ -162,7 +164,7 @@ void server_task(void *pvParameters)
 			// Send the reply data, once the transmission has completed go into receive mode
 			while(!nRF905_TX(NRF905_NEXTMODE_RX, true));
 
-			ESP_LOGI(pcTaskGetName(0),"Pings:%d Invalid:%d Bad:%d", pings, invalids, badData);
+			ESP_LOGI(pcTaskGetName(0),"Pings:%"PRIu32" Invalid:%"PRIu32" Bad:%"PRIu32, pings, invalids, badData);
 		}
 		vTaskDelay(10);
 	}
