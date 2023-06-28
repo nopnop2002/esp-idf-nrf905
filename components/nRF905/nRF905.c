@@ -6,6 +6,8 @@
  * Web: https://blog.zakkemble.net/nrf905-avrarduino-librarydriver/
  */
 
+#include <stdio.h>
+#include <inttypes.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -202,7 +204,7 @@ void nRF905_printConfig(void)
 	printf("RX_AFW           = %d byte RX address field width\n", RX_AFW);
 	printf("TX_PW            = %d byte TX payload field width\n", TX_PW);
 	printf("RX_PW            = %d byte RX payload field width\n", RX_PW);
-	printf("RX_ADDRESS       = 0x%x\n", RX_ADDRESS);
+	printf("RX_ADDRESS       = 0x%"PRIx32"\n", RX_ADDRESS);
 	if (CRC_MODE == 0) {
 	printf("CRC_MODE         = 8 CRC check bit\n");
 	} else {

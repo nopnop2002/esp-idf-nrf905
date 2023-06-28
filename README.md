@@ -7,15 +7,15 @@ I ported from [here](https://github.com/ZakKemble/nRF905-arduino).
 
 
 # Software requirements
-esp-idf v4.4 or later.   
-This is because this version supports ESP32-C3.   
+ESP-IDF V4.4/V5.0.   
+ESP-IDF V5.0 is required when using ESP32-C2.   
 
 
 # Installation
 ```Shell
 git clone https://github.com/nopnop2002/esp-idf-nrf905
 cd esp-idf-nrf905/basic/
-idf.py set-target {esp32/esp32s2/esp32s3/esp32c3}
+idf.py set-target {esp32/esp32s2/esp32s3/esp32c2/esp32c3}
 idf.py menuconfig
 idf.py flash
 ```
@@ -43,15 +43,15 @@ Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST /
 
 # Wirering
 
-|nRF905||ESP32|ESP32-S2/S3|ESP32-C3|
+|nRF905||ESP32|ESP32-S2/S3|ESP32-C2/C3|
 |:-:|:-:|:-:|:-:|:-:|
-|MISO|--|GPIO19|GPIO37|GPIO18|
-|SCK|--|GPIO18|GPIO36|GPIO10|
-|MOSI|--|GPIO23|GPIO35|GPIO19|
-|CSN|--|GPIO5|GPIO34|GPIO9|
-|TXEN|--|GPIO15|GPIO40|GPIO4|
-|PWR|--|GPIO16|GPIO41|GPIO5|
-|CE|--|GPIO17|GPIO42|GPIO6|
+|MISO|--|GPIO19|GPIO37|GPIO4|
+|SCK|--|GPIO18|GPIO36|GPIO3|
+|MOSI|--|GPIO23|GPIO35|GPIO2|
+|CSN|--|GPIO5|GPIO34|GPIO1|
+|TXEN|--|GPIO15|GPIO40|GPIO5|
+|PWR|--|GPIO16|GPIO41|GPIO6|
+|CE|--|GPIO17|GPIO42|GPIO0|
 |DR|--|N/C|N/C|N/C|
 |CD|--|N/C|N/C|N/C|
 |AM|--|N/C|N/C|N/C|

@@ -4,16 +4,16 @@ menu "nRF905 Configuration"
 		int
 		default 33 if IDF_TARGET_ESP32
 		default 46 if IDF_TARGET_ESP32S2
-		default 19 if IDF_TARGET_ESP32C3
 		default 48 if IDF_TARGET_ESP32S3
+		default 18 if IDF_TARGET_ESP32C2
+		default 19 if IDF_TARGET_ESP32C3
 
 	config MISO_GPIO
 		int "MISO GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 19 if IDF_TARGET_ESP32
-		default 37 if IDF_TARGET_ESP32S2
-		default 37 if IDF_TARGET_ESP32S3
-		default 18 if IDF_TARGET_ESP32C3
+		default 37 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  4 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the MISO SPI signal.
 
@@ -21,9 +21,8 @@ menu "nRF905 Configuration"
 		int "SCK GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 18 if IDF_TARGET_ESP32
-		default 36 if IDF_TARGET_ESP32S2
-		default 36 if IDF_TARGET_ESP32S3
-		default 10 if IDF_TARGET_ESP32C3
+		default 36 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  3 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the SCK SPI signal.
 
@@ -31,19 +30,17 @@ menu "nRF905 Configuration"
 		int "MOSI GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 23 if IDF_TARGET_ESP32
-		default 35 if IDF_TARGET_ESP32S2
-		default 35 if IDF_TARGET_ESP32S3
-		default 19 if IDF_TARGET_ESP32C3
+		default 35 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  2 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the MOSI SPI signal.
 
 	config CSN_GPIO
 		int "CSN GPIO"
 		range 0 GPIO_RANGE_MAX
-		default 5  if IDF_TARGET_ESP32
-		default 34 if IDF_TARGET_ESP32S2
-		default 34 if IDF_TARGET_ESP32S3
-		default 9  if IDF_TARGET_ESP32C3
+		default  5 if IDF_TARGET_ESP32
+		default 34 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  1 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number where the NCS pin of the LoRa module is connected to.
 
@@ -51,9 +48,8 @@ menu "nRF905 Configuration"
 		int "TXEN GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 15 if IDF_TARGET_ESP32
-		default 40 if IDF_TARGET_ESP32S2
-		default 40 if IDF_TARGET_ESP32S3
-		default 4  if IDF_TARGET_ESP32C3
+		default 40 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  5 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the TX/RX mode switch signal.
 
@@ -61,9 +57,8 @@ menu "nRF905 Configuration"
 		int "PWR GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 16 if IDF_TARGET_ESP32
-		default 41 if IDF_TARGET_ESP32S2
-		default 41 if IDF_TARGET_ESP32S3
-		default 5  if IDF_TARGET_ESP32C3
+		default 41 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  6 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the PWR signal.
 
@@ -71,9 +66,8 @@ menu "nRF905 Configuration"
 		int "CE GPIO"
 		range 0 GPIO_RANGE_MAX
 		default 17 if IDF_TARGET_ESP32
-		default 42 if IDF_TARGET_ESP32S2
-		default 42 if IDF_TARGET_ESP32S3
-		default 6  if IDF_TARGET_ESP32C3
+		default 42 if IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+		default  0 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C2
 		help
 			Pin Number to be used as the CE signal.
 
@@ -87,6 +81,7 @@ menu "nRF905 Configuration"
 			help
 				Use SPI2_HOST. This is also called HSPI_HOST.
 		config SPI3_HOST
+			depends on IDF_TARGET_ESP32 || IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
 			bool "SPI3_HOST"
 			help
 				USE SPI3_HOST. This is also called VSPI_HOST
