@@ -92,7 +92,7 @@ UP_CLK_FREQ      = 4MHz
 |FiFo for transmission|32Byte*1|32Byte*3|
 |CRC Length|8/16bits|8/16bits|
 |Acknowledgement Payload|No|Yes|
-|Modulation format|GFSK|GFSK|
+|Available Modulation format|GFSK|GFSK|
 
 nRF905 cannot tell whether the transmission was successful or unsuccessful on the transmitting side.   
 nRF24L01 can tell whether the transmission was successful or unsuccessful on the transmitting side.   
@@ -107,7 +107,7 @@ nRF24L01 can tell whether the transmission was successful or unsuccessful on the
 |FiFo for transmission|32Byte*1|64Byte*1|64Byte*1|
 |CRC Length|8/16bits|16bits|8/16bits|
 |Acknowledgement Payload|No|No|No|
-|Modulation format|GFSK|2-FSK/4-FSK/GFSK/ASK/OOK/MSK|FSK/GFSK/OOK|
+|Available Modulation format|GFSK|2-FSK/4-FSK/GFSK/ASK/OOK/MSK|FSK/GFSK/OOK|
 
 - GFSK  : Gaussian shaped Frequency Shift Keying
 - 2-FSK : Binary Frequency Shift Keying
