@@ -59,34 +59,21 @@ void setup()
 
 void loop()
 {
-	static uint8_t counter;
-	static uint32_t sent;
-
 	// Make data
 	uint8_t buffer[PAYLOAD_SIZE];
-	memset(buffer, counter, PAYLOAD_SIZE);
-	counter++;
+	memset(buffer, 0, PAYLOAD_SIZE);
+	sprintf(buffer,"now is %lu",micros());
 
 	// Show data
-	Serial.print(F("Sending data: "));
-	for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
-	{
-		Serial.print(F(" "));
-		Serial.print(buffer[i], DEC);
-	}
-	Serial.println();
+	Serial.print(F("Sending data: ["));
+	Serial.print((char *)buffer);
+	Serial.println("]");
 
-	// Write reply data and destination address to radio IC
+	// Write data
 	transceiver.write(TXADDR, buffer, sizeof(buffer));
 
 	// Send the data (send fails if other transmissions are going on, keep trying until success) and enter RX mode on completion
 	while(!transceiver.TX(NRF905_NEXTMODE_RX, true));
-	sent++;
    
-	Serial.println(F("Totals:"));
-	Serial.print(F(" Sent     "));
-	Serial.println(sent);
-	Serial.println(F("------"));
-
 	delay(1000);
 }

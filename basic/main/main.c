@@ -3,7 +3,9 @@
  * This sample code is in the public domain.
  */
 
-#include "string.h"
+#include <stdio.h>
+#include <inttypes.h>
+#include <string.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -26,16 +28,17 @@ void tx_task(void *pvParameters)
 	nRF905_printConfig();
 
 	uint8_t buffer[PAYLOAD_SIZE];
-	uint8_t counter = 0;
 
 	while(1) {
-		memset(buffer, counter, PAYLOAD_SIZE);
-		counter++;
+		memset(buffer, 0, PAYLOAD_SIZE);
+		TickType_t nowTick = xTaskGetTickCount();
+		sprintf((char *)buffer, "Hello World %"PRIu32, nowTick);
 
 		// Show data
-		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+		//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+		ESP_LOGI(pcTaskGetName(0),"Sending data: [%s]", buffer);
 		
-		// Write reply data and destination address to radio IC
+		// Write data
 		nRF905_write(TXADDR, buffer, sizeof(buffer));
 
 		// Send the data (send fails if other transmissions are going on, keep trying until success) and enter RX mode on completion
@@ -75,7 +78,8 @@ void rx_task(void *pvParameters)
 			// Read payload
 			nRF905_read(buffer, sizeof(buffer));
 			// Show received data
-			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+			//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+			ESP_LOGI(pcTaskGetName(0), "%s", buffer);
 		}
 		vTaskDelay(10);
 	}

@@ -133,7 +133,8 @@ void setup()
 
 void loop()
 {
-	static uint32_t pings;
+	static uint32_t totals;
+	static uint32_t valids;
 	static uint32_t invalids;
 
 #if defined(POLLING)
@@ -142,6 +143,7 @@ void loop()
 
 	if(packetStatus == PACKET_INVALID)
 	{
+		totals++;
 		invalids++;
 		packetStatus = PACKET_NONE;
 		Serial.println(F("Invalid packet!"));
@@ -149,7 +151,8 @@ void loop()
 	}
 	else if(packetStatus == PACKET_RX_DONE)
 	{
-		pings++;
+		totals++;
+		valids++;
 		packetStatus = PACKET_NONE;
 		Serial.println(F("Got pascket!"));
 
@@ -160,18 +163,15 @@ void loop()
 		transceiver.read(buffer, sizeof(buffer));
 
 		// Show received data
-		Serial.print(F("Data from client:"));
-		for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
-		{
-			Serial.print(F(" "));
-			Serial.print(buffer[i], DEC);
-		}
-		Serial.println();
+		Serial.print(F("Data from client: ["));
+		Serial.print((char *)buffer);
+		Serial.println("]");
 
-		Serial.println(F("Totals:"));
-		Serial.print(F(" Pings   "));
-		Serial.println(pings);
-		Serial.print(F(" Invalid "));
+		Serial.print(F("Totals:"));
+		Serial.print(totals);
+		Serial.print(F(" Valids:"));
+		Serial.print(valids);
+		Serial.print(F(" Invalid:"));
 		Serial.println(invalids);
 		Serial.println(F("------"));
 	}
