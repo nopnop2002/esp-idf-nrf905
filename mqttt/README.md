@@ -74,4 +74,8 @@ You can use this as broker.
 https://github.com/nopnop2002/esp-idf-mqtt-broker
 
 
+# Communication with arduino environment
+I use [this](https://github.com/ZakKemble/nRF905-arduino).   
+Example is in the arduino folder.   
+
 
