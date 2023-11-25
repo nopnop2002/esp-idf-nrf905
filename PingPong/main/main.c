@@ -18,7 +18,7 @@
 
 #define TIMEOUT 500 // 500ms ping timeout
 
-#define PAYLOAD_SIZE	NRF905_MAX_PAYLOAD
+#define PAYLOAD_SIZE NRF905_MAX_PAYLOAD // 32
 
 #if CONFIG_CLIENT
 void client_task(void *pvParameters)

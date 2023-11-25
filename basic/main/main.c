@@ -16,7 +16,7 @@
 #define RXADDR 0xE7E7E7E7 // Address of this device
 #define TXADDR 0xE7E7E7E7 // Address of device to send to
 
-#define PAYLOAD_SIZE	NRF905_MAX_PAYLOAD
+#define PAYLOAD_SIZE NRF905_MAX_PAYLOAD // 32
 
 #if CONFIG_SENDER
 void tx_task(void *pvParameters)
@@ -81,7 +81,7 @@ void rx_task(void *pvParameters)
 			//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 			ESP_LOGI(pcTaskGetName(0), "%s", buffer);
 		}
-		vTaskDelay(10);
+		vTaskDelay(1); // Avoid Watchdog asserts
 	}
 }
 #endif // CONFIG_RECEIVER
@@ -89,10 +89,10 @@ void rx_task(void *pvParameters)
 void app_main()
 {
 #if CONFIG_SENDER
-	xTaskCreate(&tx_task, "sender", 1024*3, NULL, 5, NULL);
+	xTaskCreate(&tx_task, "TX", 1024*3, NULL, 5, NULL);
 #endif
 #if CONFIG_RECEIVER
-	xTaskCreate(&rx_task, "receiver", 1024*3, NULL, 5, NULL);
+	xTaskCreate(&rx_task, "RX", 1024*3, NULL, 5, NULL);
 #endif
 }
 
