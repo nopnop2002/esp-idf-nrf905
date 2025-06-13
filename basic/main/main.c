@@ -35,8 +35,8 @@ void tx_task(void *pvParameters)
 		sprintf((char *)buffer, "Hello World %"PRIu32, nowTick);
 
 		// Show data
-		//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
-		ESP_LOGI(pcTaskGetName(0),"Sending data: [%s]", buffer);
+		//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+		ESP_LOGI(pcTaskGetName(NULL),"Sending data: [%s]", buffer);
 		
 		// Write data
 		nRF905_write(TXADDR, buffer, sizeof(buffer));
@@ -69,17 +69,17 @@ void rx_task(void *pvParameters)
 	while(1) {
 		uint8_t packetStatus = nRF905_poll();
 		if (packetStatus == NRF905_RX_INVALID) {
-			ESP_LOGW(pcTaskGetName(0), "Invalid packet!");
+			ESP_LOGW(pcTaskGetName(NULL), "Invalid packet!");
 			nRF905_RX();
 		} else if (packetStatus == NRF905_ADDR_MATCH) {
-			ESP_LOGI(pcTaskGetName(0), "Address match!");
+			ESP_LOGI(pcTaskGetName(NULL), "Address match!");
 		} else if (packetStatus == NRF905_RX_COMPLETE) {
-			ESP_LOGI(pcTaskGetName(0), "Got packet!");
+			ESP_LOGI(pcTaskGetName(NULL), "Got packet!");
 			// Read payload
 			nRF905_read(buffer, sizeof(buffer));
 			// Show received data
-			//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(0), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
-			ESP_LOGI(pcTaskGetName(0), "%s", buffer);
+			//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
+			ESP_LOGI(pcTaskGetName(NULL), "%s", buffer);
 		}
 		vTaskDelay(1); // Avoid Watchdog asserts
 	}
