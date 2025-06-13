@@ -21,11 +21,11 @@ This is nRF905 and HTTP gateway application.
 ![config-app](https://github.com/nopnop2002/esp-idf-nrf905/assets/6020549/e87d059b-7e90-4235-9e45-96541cf0582f)
 
 ## WiFi Setting
-
+Set the information of your access point.   
 ![config-wifi](https://github.com/nopnop2002/esp-idf-nrf905/assets/6020549/630c0aa8-463a-4b68-9a83-34025236585c)
 
-
 ## Radioi Setting
+Set the wireless communication direction.   
 
 ### HTTP to Radio
 Subscribe with HTTP and send to Radio.   
