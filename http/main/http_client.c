@@ -18,13 +18,10 @@
 #include "esp_tls.h"
 #include "esp_http_client.h"
 
-#if CONFIG_RECEIVER
-
 static const char *TAG = "CLIENT";
 
 extern MessageBufferHandle_t xMessageBufferTrans;
 extern size_t xItemSize;
-
 
 esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 {
@@ -136,6 +133,7 @@ esp_err_t http_post_with_url(char *url, char * post_data, size_t post_len)
 	};
 #endif
 
+
 	esp_http_client_handle_t client = esp_http_client_init(&config);
 
 	// POST
@@ -192,4 +190,3 @@ void http_client(void *pvParameters)
 	// Stop connection
 	vTaskDelete(NULL);
 }
-#endif
