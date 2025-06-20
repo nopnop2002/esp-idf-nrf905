@@ -25,6 +25,7 @@ void tx_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	uint8_t buffer[PAYLOAD_SIZE];
@@ -45,6 +46,9 @@ void tx_task(void *pvParameters)
 		while(nRF905_TX(NRF905_NEXTMODE_RX, true) == false);
 		vTaskDelay(100);
 	}
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SENDER
 
@@ -56,6 +60,7 @@ void rx_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	// Set address of this device
@@ -83,6 +88,9 @@ void rx_task(void *pvParameters)
 		}
 		vTaskDelay(1); // Avoid Watchdog asserts
 	}
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_RECEIVER
 

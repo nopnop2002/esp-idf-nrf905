@@ -27,12 +27,11 @@ According to the ESP32C3 specifications, these pins can also be used as SPI cloc
 I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.   
 
 # Configuration for Transceiver   
-
 ![config-nrf905-1](https://user-images.githubusercontent.com/6020549/154828765-9a272831-a2fa-433f-8774-3ce265eecbc5.jpg)
-![config-nrf905-2](https://user-images.githubusercontent.com/6020549/168008179-d506d2f7-222a-4937-a3f2-133459ec15c9.jpg)
+![Image](https://github.com/user-attachments/assets/4c80312f-4139-41fb-8a6b-b4a4df45ea16)
 
 # SPI BUS selection   
-![config-nrf905-3](https://user-images.githubusercontent.com/6020549/168008211-99c7da69-759a-4235-bdab-bc0d9d8563f0.jpg)
+![Image](https://github.com/user-attachments/assets/12e2e650-a1c3-4056-b9c9-8901bf663065)
 
 The ESP32 series has three SPI BUSs.   
 SPI1_HOST is used for communication with Flash memory.   
