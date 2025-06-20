@@ -27,16 +27,17 @@ void client_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	uint8_t buffer[PAYLOAD_SIZE];
 	uint8_t replyBuffer[PAYLOAD_SIZE];
 	uint8_t counter = 0;
-	uint32_t sent = 0;
-	uint32_t replies = 0;
-	uint32_t timeouts = 0;
-	uint32_t invalids = 0;
-	uint32_t badData = 0;
+	int sent = 0;
+	int replies = 0;
+	int timeouts = 0;
+	int invalids = 0;
+	int badData = 0;
 
 	while(1) {
 		memset(buffer, counter, PAYLOAD_SIZE);
@@ -98,6 +99,9 @@ void client_task(void *pvParameters)
 		ESP_LOGI(pcTaskGetName(NULL), "Send:%d Replies:%d Timeouts:%d Invalid:%d Bad:%d", sent, replies, timeouts, invalids, badData);
 		vTaskDelay(100);
 	} // end while
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_CLIENT
 
@@ -109,6 +113,7 @@ void server_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	// Set address of this device
@@ -117,9 +122,9 @@ void server_task(void *pvParameters)
 	// Put into receive mode
 	nRF905_RX();
 
-	uint32_t pings = 0;
-	uint32_t invalids = 0;
-	uint32_t badData = 0;
+	int pings = 0;
+	int invalids = 0;
+	int badData = 0;
 	uint8_t buffer[PAYLOAD_SIZE];
 	uint8_t replyBuffer[PAYLOAD_SIZE];
 
@@ -164,10 +169,13 @@ void server_task(void *pvParameters)
 			// Send the reply data, once the transmission has completed go into receive mode
 			while(!nRF905_TX(NRF905_NEXTMODE_RX, true));
 
-			ESP_LOGI(pcTaskGetName(NULL),"Pings:%"PRIu32" Invalid:%"PRIu32" Bad:%"PRIu32, pings, invalids, badData);
+			ESP_LOGI(pcTaskGetName(NULL),"Pings:%d Invalid:%d Bad:%d", pings, invalids, badData);
 		}
 		vTaskDelay(10);
 	}
+
+	// never reach here
+	vTaskDelete( NULL );
 }
 #endif // CONFIG_SERVER
 
