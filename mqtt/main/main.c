@@ -47,23 +47,23 @@ size_t xItemSize = NRF905_MAX_PAYLOAD;
 
 static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
-    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
-        esp_wifi_connect();
-    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < CONFIG_ESP_MAXIMUM_RETRY) {
-            esp_wifi_connect();
-            s_retry_num++;
-            ESP_LOGI(TAG, "retry to connect to the AP");
-        } else {
-            xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
-        }
-        ESP_LOGI(TAG,"connect to the AP fail");
-    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
-        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-        ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
-        s_retry_num = 0;
-        xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
-    }
+	if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+		esp_wifi_connect();
+	} else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+		if (s_retry_num < CONFIG_ESP_MAXIMUM_RETRY) {
+			esp_wifi_connect();
+			s_retry_num++;
+			ESP_LOGI(TAG, "retry to connect to the AP");
+		} else {
+			xEventGroupSetBits(s_wifi_event_group, WIFI_FAIL_BIT);
+		}
+		ESP_LOGI(TAG,"connect to the AP fail");
+	} else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+		ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+		ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
+		s_retry_num = 0;
+		xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
+	}
 }
 
 esp_err_t wifi_init_sta(void)
@@ -191,16 +191,18 @@ void tx_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	uint8_t buffer[xItemSize];
 
 	while(1) {
-        size_t received = xMessageBufferReceive(xMessageBufferRecv, buffer, sizeof(buffer), portMAX_DELAY);
-        ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
+		memset(buffer, 0x00, xItemSize);
+		size_t received = xMessageBufferReceive(xMessageBufferRecv, buffer, sizeof(buffer), portMAX_DELAY);
+		ESP_LOGI(pcTaskGetName(NULL), "xMessageBufferReceive received=%d", received);
 
 		// Show data
-		//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, xItemSize, ESP_LOG_INFO);
+		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, xItemSize, ESP_LOG_INFO);
 		ESP_LOGI(pcTaskGetName(NULL),"Sending data: [%s]", buffer);
 		
 		// Write data
@@ -208,8 +210,10 @@ void tx_task(void *pvParameters)
 
 		// Send the data (send fails if other transmissions are going on, keep trying until success) and enter RX mode on completion
 		while(nRF905_TX(NRF905_NEXTMODE_RX, true) == false);
-		vTaskDelay(100);
-	}
+	} // end while
+
+	// never reach here
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_SENDER
 
@@ -221,6 +225,7 @@ void rx_task(void *pvParameters)
 
 	// Initialize PHY
 	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
 	nRF905_printConfig();
 
 	// Set address of this device
@@ -243,21 +248,23 @@ void rx_task(void *pvParameters)
 			// Read payload
 			nRF905_read(buffer, sizeof(buffer));
 			// Show received data
-			//ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, xItemSize, ESP_LOG_INFO);
+			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, xItemSize, ESP_LOG_INFO);
 			ESP_LOGI(pcTaskGetName(NULL), "%s", buffer);
+
+			int rxLen = strlen((char *)buffer);
+			ESP_LOGI(pcTaskGetName(NULL), "rxLen=%d", rxLen);
 			size_t spacesAvailable = xMessageBufferSpacesAvailable( xMessageBufferTrans );
 			ESP_LOGI(pcTaskGetName(NULL), "spacesAvailable=%d", spacesAvailable);
-			if (spacesAvailable < xItemSize*2) {
-				ESP_LOGW(pcTaskGetName(NULL), "xMessageBuffer available less than %d", xItemSize*2);
-			} else {
-				size_t sended = xMessageBufferSend(xMessageBufferTrans, buffer, xItemSize, portMAX_DELAY);
-				if (sended != xItemSize) {
-					ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail");
-				}
+			size_t sended = xMessageBufferSend(xMessageBufferTrans, buffer, rxLen, 100);
+			if (sended != rxLen) {
+				ESP_LOGE(pcTaskGetName(NULL), "xMessageBufferSend fail rxLen=%d sended=%d", rxLen, sended);
+				break;
 			}
 		}
 		vTaskDelay(1); // Avoid Watchdog asserts
-	}
+	} // end while
+
+	vTaskDelete(NULL);
 }
 #endif // CONFIG_RECEIVER
 
@@ -288,11 +295,11 @@ void app_main()
 
 #if CONFIG_SENDER
 	xTaskCreate(&tx_task, "TX", 1024*3, NULL, 5, NULL);
-	xTaskCreate(&mqtt_sub, "SUB", 1024*4, NULL, 2, NULL);
+	xTaskCreate(&mqtt_sub, "SUB", 1024*4, NULL, 5, NULL);
 #endif
 #if CONFIG_RECEIVER
 	xTaskCreate(&rx_task, "RX", 1024*3, NULL, 5, NULL);
-	xTaskCreate(&mqtt_pub, "PUB", 1024*4, NULL, 2, NULL);
+	xTaskCreate(&mqtt_pub, "PUB", 1024*4, NULL, 5, NULL);
 #endif
 }
 
