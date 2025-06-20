@@ -30,11 +30,6 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 ![config-nrf905-1](https://user-images.githubusercontent.com/6020549/154828765-9a272831-a2fa-433f-8774-3ce265eecbc5.jpg)
 ![Image](https://github.com/user-attachments/assets/4c80312f-4139-41fb-8a6b-b4a4df45ea16)
 
-# Channel to use
-![Image](https://github.com/user-attachments/assets/985173a2-947a-4006-93f6-62f65ef8de4c)
-
-The channel used by the sender and receiver must match.   
-
 # SPI BUS selection   
 ![Image](https://github.com/user-attachments/assets/12e2e650-a1c3-4056-b9c9-8901bf663065)
 
@@ -45,6 +40,11 @@ When you use SDSPI(SD Card via SPI), SDSPI uses SPI2_HOST BUS.
 When using this module at the same time as SDSPI or other SPI device using SPI2_HOST, it needs to be changed to SPI3_HOST.   
 When you don't use SDSPI, both SPI2_HOST and SPI3_HOST will work.   
 Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST / SPI3_HOST.   
+
+# Channel to use
+![Image](https://github.com/user-attachments/assets/985173a2-947a-4006-93f6-62f65ef8de4c)
+
+The channel used by the sender and receiver must match.   
 
 # Wirering
 
