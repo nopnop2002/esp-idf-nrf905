@@ -16,8 +16,8 @@
 
 #define RXADDR 0xE7E7E7E7 // Address of this device
 #define TXADDR 0xE7E7E7E7 // Address of device to send to
-
-#define TIMEOUT 500 // 500ms ping timeout
+#define PAYLOAD_SIZE  NRF905_MAX_PAYLOAD // 32
+#define CHANNEL 10
 
 #define PACKET_NONE    0
 #define PACKET_RX_DONE 1
@@ -25,7 +25,7 @@
 #define PACKET_TX_DONE 3
 #define PACKET_ADDR_MATCH 4
 
-#define PAYLOAD_SIZE  NRF905_MAX_PAYLOAD // 32
+#define TIMEOUT 500 // 500ms ping timeout
 
 // Comment when using DR and AM Interrupt.
 #define POLLING
@@ -119,7 +119,9 @@ void setup()
 
 #endif
 
-
+  // Set channel to use
+  transceiver.setChannel(CHANNEL);
+  
 	// Register event functions
 	transceiver.events(
 		nRF905_onRxComplete,
