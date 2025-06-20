@@ -30,6 +30,11 @@ I used a raw ESP-C3-13 to verify that these pins could be used as SPI clocks.
 ![config-nrf905-1](https://user-images.githubusercontent.com/6020549/154828765-9a272831-a2fa-433f-8774-3ce265eecbc5.jpg)
 ![Image](https://github.com/user-attachments/assets/4c80312f-4139-41fb-8a6b-b4a4df45ea16)
 
+# Channel to use
+![Image](https://github.com/user-attachments/assets/985173a2-947a-4006-93f6-62f65ef8de4c)
+
+The channel used by the sender and receiver must match.   
+
 # SPI BUS selection   
 ![Image](https://github.com/user-attachments/assets/12e2e650-a1c3-4056-b9c9-8901bf663065)
 
