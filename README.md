@@ -45,6 +45,7 @@ Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST /
 ![Image](https://github.com/user-attachments/assets/985173a2-947a-4006-93f6-62f65ef8de4c)
 
 The channel used by the sender and receiver must match.   
+Channel spacing for 433MHz band is 100KHz.   
 
 # Wirering
 
