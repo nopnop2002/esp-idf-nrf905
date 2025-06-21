@@ -20,8 +20,8 @@
 
 #define PAYLOAD_SIZE NRF905_MAX_PAYLOAD // 32
 
-#if CONFIG_CLIENT
-void client_task(void *pvParameters)
+#if CONFIG_PRIMARY
+void primary_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 
@@ -103,11 +103,11 @@ void client_task(void *pvParameters)
 	// never reach here
 	vTaskDelete( NULL );
 }
-#endif // CONFIG_CLIENT
+#endif // CONFIG_PRIMARY
 
 
-#if CONFIG_SERVER
-void server_task(void *pvParameters)
+#if CONFIG_SECONDARY
+void secondary_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 
@@ -177,15 +177,15 @@ void server_task(void *pvParameters)
 	// never reach here
 	vTaskDelete( NULL );
 }
-#endif // CONFIG_SERVER
+#endif // CONFIG_SECONDARY
 
 void app_main()
 {
-#if CONFIG_CLIENT
-	xTaskCreate(&client_task, "client", 1024*4, NULL, 5, NULL);
+#if CONFIG_PRIMARY
+	xTaskCreate(&primary_task, "PRIMARY", 1024*4, NULL, 5, NULL);
 #endif
-#if CONFIG_SERVER
-	xTaskCreate(&server_task, "server", 1024*4, NULL, 5, NULL);
+#if CONFIG_SECONDARY
+	xTaskCreate(&secondary_task, "SECONDARY", 1024*4, NULL, 5, NULL);
 #endif
 }
 

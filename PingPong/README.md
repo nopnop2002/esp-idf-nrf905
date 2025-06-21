@@ -1,20 +1,40 @@
 # PingPong Example   
+Send data from primary to secondary.   
+In the secondary, the characters are converted and sent back.   
+
+- ESP32 is Primary   
 ```
-Client --- 00 --> Server
-Client <-- 01 --- Server
-Client --- 02 --> Server
-Client <-- 03 --- Server
-Client --- 04 --> Server
-Client <-- 05 --- Server
++-----------+           +-----------+             +-----------+           +-----------+
+|           |           |           |             |           |           |           |
+|  Primary  |===(SPI)==>|  nRF905   |---(Radio)-->|  nRF905   |===(SPI)==>| Secondary |
+|   ESP32   |           |           |             |           |           |           |
+|           |           |           |             |           |           |           |
+|           |<==(SPI)===|           |<--(Radio)---|           |<==(SPI)===|           |
+|           |           |           |             |           |           |           |
++-----------+           +-----------+             +-----------+           +-----------+
+```
+
+- ESP32 is Secondary   
+
+```
++-----------+           +-----------+             +-----------+           +-----------+
+|           |           |           |             |           |           |           |
+|  Primary  |===(SPI)==>|  nRF905   |---(Radio)-->|  nRF905   |===(SPI)==>| Secondary |
+|           |           |           |             |           |           |   ESP32   |
+|           |           |           |             |           |           |           |
+|           |<==(SPI)===|           |<--(Radio)---|           |<==(SPI)===|           |
+|           |           |           |             |           |           |           |
++-----------+           +-----------+             +-----------+           +-----------+
 ```
 
 # Configuration   
-![config-pingpong-1](https://user-images.githubusercontent.com/6020549/154833362-2a559245-2b5f-4ab1-b72e-435814e66fb8.jpg)
-![config-pingpong-2](https://user-images.githubusercontent.com/6020549/154833365-b36dcd12-bf73-49a5-9cf9-1e24dfe8c9f2.jpg)
-![config-pingpong-3](https://user-images.githubusercontent.com/6020549/154833364-e0a701a4-9fcc-4c1e-b4a7-6db5004c45df.jpg)
+![Image](https://github.com/user-attachments/assets/701cec16-cbb9-4e85-967e-5c7041245266)
+![Image](https://github.com/user-attachments/assets/d743b21c-75c5-4050-a1dd-4b2beea087ad)
 
+# Communication with the Arduino environment   
+- ESP32 is the primary   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/secondary).   
 
-# Communication with arduino environment
-I use [this](https://github.com/ZakKemble/nRF905-arduino).   
-Example is in the arduino folder.   
+- ESP32 is the secondary   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/primary).   
 

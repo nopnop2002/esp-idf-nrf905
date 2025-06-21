@@ -1,18 +1,18 @@
 menu "Application Configuration"
 
-	choice POLARITY
-		prompt "Communication polarity"
-		default SERVER
-		help
-			Select Communication polarity.
-		config SERVER
-			bool "As the server"
-			help
-				As the sender.
-		config CLIENT
-			bool "As the client"
-			help
-				As the client.
-	endchoice
+    choice POLARITY
+        prompt "Communication Polarity"
+        default PRIMARY
+        help
+            Select Communication Polarity.
+        config PRIMARY
+            bool "Primary"
+            help
+                As Primary.
+        config SECONDARY
+            bool "Secondary"
+            help
+                As Secondary.
+    endchoice
 
 endmenu 
