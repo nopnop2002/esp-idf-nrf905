@@ -43,10 +43,8 @@ void primary_task(void *pvParameters)
 		memset(buffer, counter, PAYLOAD_SIZE);
 		counter++;
 
-		// Show data
+		// Write the data and destination address to radio IC
 		ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
-		
-		// Write reply data and destination address to radio IC
 		nRF905_write(TXADDR, buffer, sizeof(buffer));
 
 		// Send the data (send fails if other transmissions are going on, keep trying until success) and enter RX mode on completion
@@ -82,6 +80,7 @@ void primary_task(void *pvParameters)
 			ESP_LOGI(pcTaskGetName(NULL), "Got packet!");
 			// Read payload
 			nRF905_read(replyBuffer, sizeof(replyBuffer));
+			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), replyBuffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 			// Validate data
 			for(uint8_t i=0;i<PAYLOAD_SIZE;i++)
 			{
@@ -92,8 +91,6 @@ void primary_task(void *pvParameters)
 					break;
 				}
 			}
-			// Show received data
-			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), replyBuffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 		}
 
 		ESP_LOGI(pcTaskGetName(NULL), "Send:%d Replies:%d Timeouts:%d Invalid:%d Bad:%d", sent, replies, timeouts, invalids, badData);
@@ -141,7 +138,6 @@ void secondary_task(void *pvParameters)
 			pings++;
 			// Read payload
 			nRF905_read(buffer, sizeof(buffer));
-			// Show received data
 			ESP_LOG_BUFFER_HEXDUMP(pcTaskGetName(NULL), buffer, PAYLOAD_SIZE, ESP_LOG_INFO);
 
 			memcpy(replyBuffer, buffer, PAYLOAD_SIZE);
