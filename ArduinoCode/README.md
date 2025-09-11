@@ -1,7 +1,7 @@
 # Example of Arduino environment   
 I use [this](https://github.com/ZakKemble/nRF905-arduino).   
 
-# Wirering using polling
+# Wiring using polling
 
 |nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
@@ -20,7 +20,7 @@ I use [this](https://github.com/ZakKemble/nRF905-arduino).
 |GND|--|GND||
 
 
-# Wirering using DR(Data Ready) and AM(Address Match) Interrupt
+# Wiring using DR(Data Ready) and AM(Address Match) Interrupt
 
 |nRF905||ATmega||
 |:-:|:-:|:-:|:-:|
