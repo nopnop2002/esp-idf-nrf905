@@ -88,5 +88,12 @@ menu "nRF905 Configuration"
 				USE SPI3_HOST. This is also called VSPI_HOST
 	endchoice
 
+	config RF69_CHANNEL
+		int "RF69 channel"
+		range 0 511
+		default 10
+		help
+			Both receiver and transmitter must operate on the same channel
+
 endmenu
 

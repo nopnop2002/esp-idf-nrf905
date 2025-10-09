@@ -154,7 +154,7 @@ void nRF905_printConfig(void)
 	uint8_t config[10];
 	for (int reg=0;reg<10;reg++) {
 		config[reg] = nRF905_readConfigRegister(reg);
-		ESP_LOGD(TAG, "%d:%02x", reg, config[reg]);
+		ESP_LOGI(TAG, "%d:%02x", reg, config[reg]);
 	}
 	uint16_t CH_NO = (config[1] & 0x01) << 8 | config[0];
 	uint8_t  AUTO_RETRAN = (config[1] & 0x20) >> 4;
