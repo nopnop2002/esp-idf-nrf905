@@ -90,6 +90,32 @@ UP_CLK_EN        = No external clock signal available
 UP_CLK_FREQ      = 4MHz
 ```
 
+# How to use this component in your project   
+Create idf_component.yml in the same directory as main.c.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+                         +-- CMakeLists.txt
+                         +-- idf_component.yml
+```
+
+Contents of idf_component.yml.
+```
+dependencies:
+  nopnop2002/nrf905:
+    path: components/nRF905/
+    git: https://github.com/nopnop2002/esp-idf-nrf905.git
+```
+
+When you build a projects esp-idf will automaticly fetch repository to managed_components dir and link with your code.   
+```
+YourProject --+-- CMakeLists.txt
+              +-- main --+-- main.c
+              |          +-- CMakeLists.txt
+              |          +-- idf_component.yml
+              +-- managed_components ----- nopnop2002__nrf905
+```
+
 # Comparison of nRF905 and nRF24L01
 ||nRF905|nRF24L01|
 |:-:|:-:|:-:|
