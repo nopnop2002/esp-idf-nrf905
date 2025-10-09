@@ -47,6 +47,7 @@ Previously it was called HSPI_HOST / VSPI_HOST, but now it is called SPI2_HOST /
 
 The channel used by the sender and receiver must match.   
 Channel spacing for 433MHz band is 100KHz.   
+The channel range is 0 to 511.
 
 # Wiring
 
