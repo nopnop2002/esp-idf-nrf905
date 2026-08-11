@@ -48,7 +48,7 @@ ESP32-P4 BOARD             USB CONNECTOR
 
 
 # Configuration
-![Image](https://github.com/user-attachments/assets/92b41987-8679-4af1-bfaf-e5bec05c76f8)
+<img width="659" height="486" alt="Image" src="https://github.com/user-attachments/assets/75ec3a26-2c55-49b2-a8f6-156ebd58d6a8" />
 
 ### USB to Radio
 Receive from USB and send to Radio.   
@@ -64,7 +64,7 @@ You can use this script as USB Serial Host for writing.
             +---------------+          +---------------+          +---------------+
 ```
 
-![Image](https://github.com/user-attachments/assets/f42de1bb-d8d0-46c0-89f9-bf7013eb0b5b)
+<img width="659" height="468" alt="Image" src="https://github.com/user-attachments/assets/d0f346c5-ca95-43e3-98fc-e37707353f83" />
 
 Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/receiver).   
@@ -83,7 +83,7 @@ You can use this script as USB Serial Host for reading.
             +---------------+          +---------------+          +---------------+
 ```
 
-![Image](https://github.com/user-attachments/assets/43baaab3-170c-4933-8baa-856596e29894)
+<img width="659" height="468" alt="Image" src="https://github.com/user-attachments/assets/3b5e448c-605d-4e86-811c-d8576680f6a3" />
 
 Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/transmitter).   
