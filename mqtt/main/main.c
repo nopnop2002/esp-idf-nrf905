@@ -1,4 +1,4 @@
-/* The example of ESP-IDF
+/* The example of nRF905
  *
  * This sample code is in the public domain.
  */
@@ -189,11 +189,6 @@ void tx_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
 
-	// Initialize PHY
-	nRF905_begin();
-	nRF905_setChannel(CONFIG_RF69_CHANNEL);
-	nRF905_printConfig();
-
 	uint8_t buffer[xItemSize];
 
 	while(1) {
@@ -222,11 +217,6 @@ void tx_task(void *pvParameters)
 void rx_task(void *pvParameters)
 {
 	ESP_LOGI(pcTaskGetName(NULL), "Start");
-
-	// Initialize PHY
-	nRF905_begin();
-	nRF905_setChannel(CONFIG_RF69_CHANNEL);
-	nRF905_printConfig();
 
 	// Set address of this device
 	nRF905_setListenAddress(RXADDR);
@@ -292,6 +282,11 @@ void app_main()
 
 	// Initialize mDNS
 	ESP_ERROR_CHECK( mdns_init() );
+
+	// Initialize nRF905
+	nRF905_begin();
+	nRF905_setChannel(CONFIG_RF69_CHANNEL);
+	nRF905_printConfig();
 
 #if CONFIG_SENDER
 	xTaskCreate(&tx_task, "TX", 1024*3, NULL, 5, NULL);
