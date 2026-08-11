@@ -42,7 +42,7 @@ You can use mosquitto_pub as Publisher.
 ```
 
 
-This project can communicate with the Arduino environment.   
+Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/receiver).   
 
 ### Radio to MQTT
@@ -59,7 +59,7 @@ You can use mosquitto_sub as Subscriber.
 ```
 
 
-This project can communicate with the Arduino environment.   
+Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/transmitter).   
 
 ## Broker Setting
