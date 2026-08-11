@@ -66,7 +66,7 @@ You can use this script as USB Serial Host for writing.
 
 <img width="659" height="468" alt="Image" src="https://github.com/user-attachments/assets/d0f346c5-ca95-43e3-98fc-e37707353f83" />
 
-This project can communicate with the Arduino environment.   
+Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/receiver).   
 
 ### Radio to USB
@@ -85,7 +85,7 @@ You can use this script as USB Serial Host for reading.
 
 <img width="659" height="468" alt="Image" src="https://github.com/user-attachments/assets/3b5e448c-605d-4e86-811c-d8576680f6a3" />
 
-This project can communicate with the Arduino environment.   
+Communicate with Arduino Environment.   
 I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/transmitter).   
 
 # Using Windows Terminal Software
