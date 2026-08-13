@@ -1,5 +1,5 @@
 # BLE Example   
-This is cc1101 and BLE gateway application.   
+This is nRF905 and BLE gateway application.   
 ESP-IDF can use either the ESP-Bluedroid host stack or the ESP-NimBLE host stack.   
 The differences between the two are detailed [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/ble/overview.html).   
 This project uses the ESP-NimBLE host stack.   
@@ -36,7 +36,7 @@ Receive from BLE and send to Radio.
 <img width="659" height="486" alt="Image" src="https://github.com/user-attachments/assets/bdf32720-f865-4066-a5a3-ca6bc870d343" />
 
 Communicate with Arduino Environment.   
-I tested it with [this](https://github.com/nopnop2002/esp-idf-cc1101/tree/main/ArduinoCode/CC1101_receive).   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/receiver).   
 
 ### Radio to BLE
 Receive from Radio and send to BLE.   
@@ -51,7 +51,7 @@ Receive from Radio and send to BLE.
 <img width="659" height="486" alt="Image" src="https://github.com/user-attachments/assets/69a5b69b-9a92-4892-9a82-9d28319a555b" />
 
 Communicate with Arduino Environment.   
-I tested it with [this](https://github.com/nopnop2002/esp-idf-cc1101/tree/main/ArduinoCode/CC1101_transmitte).   
+I tested it with [this](https://github.com/nopnop2002/esp-idf-nrf905/tree/main/ArduinoCode/transmitter).   
 
 # Android Application   
 I used [this](https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal) app.   
