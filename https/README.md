@@ -1,6 +1,6 @@
 # HTTPS Example   
-This is nrf905 and HTTPS gateway application.   
-Receive from cc1101 and send to HTTPS Server.   
+This is nRF905 and HTTPS gateway application.   
+Receive from nRF905 and send to HTTPS Server.   
 ESP32 acts as HTTPS Client.   
 
 ```
