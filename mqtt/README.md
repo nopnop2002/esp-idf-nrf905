@@ -24,7 +24,7 @@ This is nRF905 and MQTT gateway application.
 Set the information of your access point.   
 ![confog-wifi](https://github.com/nopnop2002/esp-idf-nrf905/assets/6020549/acad2f2d-1f1b-4d6f-860e-b32b8c010320)
 
-## Radioi Setting
+## Radio Setting
 Set the wireless communication direction.   
 ![Image](https://github.com/user-attachments/assets/f718449b-e922-4235-afb5-7261a3b8c465)
 

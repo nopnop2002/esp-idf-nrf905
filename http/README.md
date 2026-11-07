@@ -24,7 +24,7 @@ This is nRF905 and HTTP gateway application.
 Set the information of your access point.   
 ![config-wifi](https://github.com/nopnop2002/esp-idf-nrf905/assets/6020549/630c0aa8-463a-4b68-9a83-34025236585c)
 
-## Radioi Setting
+## Radio Setting
 Set the wireless communication direction.   
 
 ### HTTP to Radio
